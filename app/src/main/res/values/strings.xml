@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Calculator của Garu</string>
+    <string name="basic_calc">Basic Calculator</string>
+    <string name="age_calc">Age Calculator</string>
+    <string name="currency_converter">Currency Converter</string>
+
+    <!-- Thêm các chuỗi bị thiếu vào đây -->
+    <string name="next">Next</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</string>
+    <string name="previous">Previous</string>
+    <string name="action_settings">Settings</string>
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+</resources>

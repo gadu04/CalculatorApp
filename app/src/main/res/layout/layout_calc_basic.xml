@@ -1,0 +1,239 @@
+<!-- layout_calc_basic.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Dòng nút chức năng trên cùng -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonMore"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="..."
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/buttonParentheses"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="("
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/buttonBackspace"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="↶"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/buttonClear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="X"
+            android:textColor="@android:color/holo_blue_dark" />
+    </LinearLayout>
+
+    <!-- Grid của các nút -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:rowCount="5"
+        android:layout_marginTop="16dp">
+
+        <!-- Dòng 1 -->
+        <Button
+            android:id="@+id/buttonC"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="C"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/buttonOpenParentheses"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="("
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/buttonPercent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="%"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/buttonDivide"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="÷"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_columnWeight="1" />
+
+        <!-- Dòng 2 -->
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="7"
+            android:textColor="@android:color/black"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="8"
+            android:textColor="@android:color/black"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="9"
+            android:textColor="@android:color/black"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/buttonMultiply"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="×"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_columnWeight="1" />
+
+        <!-- Dòng 3 -->
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="4"
+            android:textColor="@android:color/black"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textColor="@android:color/black"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="6"
+            android:textColor="@android:color/black"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/buttonSubtract"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_columnWeight="1" />
+
+        <!-- Dòng 4 -->
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@android:color/black"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textColor="@android:color/black"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:textColor="@android:color/black"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/buttonAdd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_columnWeight="1" />
+
+        <!-- Dòng 5 -->
+        <Button
+            android:id="@+id/button0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@android:color/black"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/button00"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="00"
+            android:textColor="@android:color/black"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/buttonDot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=","
+            android:textColor="@android:color/black"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/buttonEquals"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="="
+            android:textColor="@android:color/white"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:layout_columnWeight="1" />
+    </GridLayout>
+</LinearLayout>

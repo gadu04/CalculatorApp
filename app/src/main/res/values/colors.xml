@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="primary">#6200EE</color>
+    <color name="primaryVariant">#3700B3</color>
+    <color name="secondary">#03DAC5</color>
+
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <!-- Calculator Button Colors -->
+    <color name="calc_button_blue_bg">#2196F3</color> <!-- Một màu xanh dương -->
+    <color name="calc_button_white_bg">#FAFAFA</color> <!-- Một màu trắng ngà -->
+    <color name="calc_button_equal_bg">#4CAF50</color> <!-- Một màu xanh lá cây cho nút bằng -->
+    <color name="calc_button_default_bg">#E0E0E0</color>
+    <color name="calc_text_color_dark">#212121</color>
+    <color name="calc_text_color_light">#FFFFFF</color>
+</resources>

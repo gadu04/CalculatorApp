@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:background="#FFFFFF"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:id="@+id/popupRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_popup">
+
+        <GridLayout
+            android:id="@+id/gridScientific"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:useDefaultMargins="true"
+            android:alignmentMode="alignMargins"
+            android:padding="8dp">
+
+            <!-- Các button giữ nguyên -->
+            <Button android:id="@+id/btnPi" android:text="π" style="@style/ScientificButton" />
+            <Button android:id="@+id/btnE" android:text="e" style="@style/ScientificButton" />
+            <Button android:id="@+id/btnPhi" android:text="φ" style="@style/ScientificButton" />
+
+            <Button android:id="@+id/btnLog" android:text="log" style="@style/ScientificButton" />
+            <Button android:id="@+id/btnLn" android:text="ln" style="@style/ScientificButton" />
+            <Button android:id="@+id/btnLog2" android:text="log\u2082" style="@style/ScientificButton" />
+
+            <Button android:id="@+id/btnSqrt" android:text="√" style="@style/ScientificButton" />
+            <Button android:id="@+id/btnCbrt" android:text="∛" style="@style/ScientificButton" />
+            <Button android:id="@+id/btnAbs" android:text="abs" style="@style/ScientificButton" />
+
+            <Button android:id="@+id/btnSin" android:text="sin" style="@style/ScientificButton" />
+            <Button android:id="@+id/btnCos" android:text="cos" style="@style/ScientificButton" />
+            <Button android:id="@+id/btnTan" android:text="tan" style="@style/ScientificButton" />
+
+            <!-- Đổi các button như bạn yêu cầu -->
+            <Button android:id="@+id/btnSinInv" android:text="sin⁻¹" style="@style/ScientificButton" />
+            <Button android:id="@+id/btnCosInv" android:text="cos⁻¹" style="@style/ScientificButton" />
+            <Button android:id="@+id/btnTanInv" android:text="tan⁻¹" style="@style/ScientificButton" />
+
+            <Button android:id="@+id/btnXSquared" android:text="x²" style="@style/ScientificButton" />
+            <Button android:id="@+id/btnXPowerN" android:text="xⁿ" style="@style/ScientificButton" />
+            <Button android:id="@+id/btnmod" android:text="mod" style="@style/ScientificButton" />
+
+        </GridLayout>
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="✕ Close"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#F44336"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginHorizontal="12dp"
+            android:padding="8dp" />
+    </LinearLayout>
+</ScrollView>

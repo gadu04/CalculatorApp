@@ -1,0 +1,14 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <Button android:id="@+id/btnSin" android:text="sin" style="@style/CalcButton.Blue" />
+    <Button android:id="@+id/btnCos" android:text="cos" style="@style/CalcButton.Blue" />
+    <Button android:id="@+id/btnTan" android:text="tan" style="@style/CalcButton.Blue" />
+    <Button android:id="@+id/btnLog" android:text="log" style="@style/CalcButton.Blue" />
+    <Button android:id="@+id/btnLn" android:text="ln" style="@style/CalcButton.Blue" />
+    <Button android:id="@+id/btnSqrt" android:text="√" style="@style/CalcButton.Blue" />
+    <Button android:id="@+id/btnCbrt" android:text="∛" style="@style/CalcButton.Blue" />
+</LinearLayout>
