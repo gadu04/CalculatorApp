@@ -26,18 +26,27 @@
     android:padding="16dp">
 
 <!-- Main display for input and results -->
-    <TextView
-        android:id="@+id/txtInput"
+    <HorizontalScrollView
+        android:id="@+id/inputScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/white"
-        android:ellipsize="start"
-        android:gravity="end|bottom"
-        android:maxLines="3"
-        android:padding="16dp"
-        android:textColor="#212121"
-        android:textSize="48sp" />
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <TextView
+            android:id="@+id/txtInput"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:background="@android:color/white"
+            android:ellipsize="start"
+            android:gravity="end|bottom"
+            android:singleLine="true"
+            android:padding="16dp"
+            android:textColor="#212121"
+            android:textSize="48sp" />
+    </HorizontalScrollView>
+
 </LinearLayout>
 
     <TextView

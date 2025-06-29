@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsetsController;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -138,7 +139,12 @@ public class BasicCalculatorActivity extends AppCompatActivity {
         } else {
             inputText.append(value);
         }
+
+        // ✅ Tự động cuộn ngang đến cuối
+        HorizontalScrollView scrollView = findViewById(R.id.inputScrollView);
+        scrollView.post(() -> scrollView.fullScroll(View.FOCUS_RIGHT));
     }
+
 
     private void evaluateExpression() {
         String exp = inputText.getText().toString();
@@ -153,8 +159,13 @@ public class BasicCalculatorActivity extends AppCompatActivity {
 
 
     private void insertFunction(String functionText) {
-        // Tự động thêm dấu ngoặc nếu là hàm toán học
         switch (functionText) {
+            case "x²":
+                inputText.append("^2");
+                break;
+            case "xⁿ":
+                inputText.append("^");
+                break;
             case "sin":
             case "cos":
             case "tan":
@@ -174,6 +185,8 @@ public class BasicCalculatorActivity extends AppCompatActivity {
                 break;
         }
     }
+
+
 
 
     private void showScientificPopup() {
