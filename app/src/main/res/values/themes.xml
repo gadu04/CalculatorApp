@@ -1,12 +1,28 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.AppCal" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="android:navigationBarColor">@color/black</item>
 
+    <!-- Base theme sử dụng Material3, NoActionBar -->
+    <style name="Base.Theme.AppCal" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <!-- Màu chủ đạo -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Màu phụ -->
+        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <!-- Nền -->
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+
+        <!-- Thanh điều hướng và status bar -->
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
+    <!-- Theme chính của app -->
     <style name="Theme.AppCal" parent="Base.Theme.AppCal" />
-
 </resources>

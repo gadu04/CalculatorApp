@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp">
+    android:padding="24dp"
+    android:background="?android:colorBackground">
 
-    <LinearLayout
+
+<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -17,7 +19,7 @@
             android:text="Currency Converter"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="#000000"
+            android:textColor="?attr/colorOnBackground"
             android:layout_marginBottom="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -26,6 +28,7 @@
         <TextView
             android:text="From"
             android:textSize="16sp"
+            android:textColor="?attr/colorOnSurface"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -40,6 +43,7 @@
         <TextView
             android:text="To"
             android:textSize="16sp"
+            android:textColor="?attr/colorOnSurface"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -55,10 +59,12 @@
             android:id="@+id/amountInput"
             android:hint="Enter amount"
             android:inputType="numberDecimal"
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="?attr/colorOnSurface"
+            android:backgroundTint="?attr/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/colorPrimary"
             android:padding="10dp" />
 
         <!-- Convert Button -->
@@ -67,8 +73,8 @@
             android:text="Convert"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimary"
-            android:textColor="@android:color/white"
+            android:backgroundTint="?attr/colorPrimary"
+            android:textColor="?attr/colorOnPrimary"
             android:textAllCaps="false"
             android:layout_marginBottom="20dp" />
 
@@ -77,7 +83,7 @@
             android:id="@+id/resultText"
             android:text="Result will show here"
             android:textSize="18sp"
-            android:textColor="#333333"
+            android:textColor="?attr/colorOnSurface"
             android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

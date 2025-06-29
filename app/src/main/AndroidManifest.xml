@@ -19,6 +19,8 @@
         <activity android:name=".activities.BasicCalculatorActivity" />
         <activity android:name=".activities.AgeCalculatorActivity" />
         <activity android:name=".activities.CurrencyConverterActivity" />
+        <activity android:name=".activities.SettingsActivity" />
+
 
 
         <activity
