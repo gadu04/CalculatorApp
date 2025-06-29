@@ -1,5 +1,6 @@
 package com.example.appcal.activities;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -10,25 +11,36 @@ import android.view.ViewGroup;
 import android.view.WindowInsetsController;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appcal.R;
 import com.example.appcal.utils.CalculatorEngine;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class BasicCalculatorActivity extends AppCompatActivity {
-
     private boolean isDegreeMode = true; // true = DEG, false = RAD
     private Button buttonC;
-
     private TextView inputText, resultText;
     private PopupWindow popupWindow;
 
     // ✅ Thêm các biến trạng thái
     private String lastResult = "";
     private boolean justEvaluated = false;
+    private ImageButton buttonHistory;
+    private ArrayList<String> historyList = new ArrayList<>();
+    private SharedPreferences preferences;
+    private static final String HISTORY_KEY = "calc_history";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +49,14 @@ public class BasicCalculatorActivity extends AppCompatActivity {
 
         inputText = findViewById(R.id.txtInput);
         resultText = findViewById(R.id.txtResult);
+
+        buttonHistory = findViewById(R.id.buttonHistory);
+        preferences = getSharedPreferences("calculator_prefs", MODE_PRIVATE);
+
+        loadHistory();
+
+        buttonHistory.setOnClickListener(v -> showHistoryDialog());
+
 
         // Gán nút popup khoa học
         findViewById(R.id.buttonMore).setOnClickListener(v -> showScientificPopup());
@@ -154,7 +174,16 @@ public class BasicCalculatorActivity extends AppCompatActivity {
         resultText.setText(result);
         lastResult = result;
         justEvaluated = true;
+
+        // ✅ Chỉ lưu nếu KHÔNG phải "ERROR"
+        if (!exp.isEmpty() && !result.isEmpty() && !result.equalsIgnoreCase("ERROR")) {
+            String entry = exp + " = " + result;
+            historyList.add(0, entry); // thêm vào đầu danh sách
+            saveHistory(); // lưu lại
+        }
     }
+
+
 
 
 
@@ -235,4 +264,45 @@ public class BasicCalculatorActivity extends AppCompatActivity {
             btnCancel.setOnClickListener(v -> popupWindow.dismiss());
         }
     }
+
+    private void saveHistory() {
+        SharedPreferences.Editor editor = preferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(historyList);
+        editor.putString(HISTORY_KEY, json);
+        editor.apply();
+    }
+
+    private void loadHistory() {
+        String json = preferences.getString(HISTORY_KEY, null);
+        if (json != null) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<ArrayList<String>>() {}.getType();
+            historyList = gson.fromJson(json, type);
+        }
+    }
+
+    private void showHistoryDialog() {
+        if (historyList.isEmpty()) {
+            Toast.makeText(this, "Chưa có lịch sử", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Lịch sử phép tính");
+
+        String[] items = historyList.toArray(new String[0]);
+        builder.setItems(items, null);
+
+        builder.setPositiveButton("Đóng", null);
+        builder.setNegativeButton("Xoá hết", (dialog, which) -> {
+            historyList.clear();
+            saveHistory();
+            Toast.makeText(this, "Đã xoá lịch sử", Toast.LENGTH_SHORT).show();
+        });
+
+        builder.show();
+    }
+
+
 }

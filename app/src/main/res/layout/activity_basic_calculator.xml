@@ -9,15 +9,30 @@
     tools:context=".activities.BasicCalculatorActivity">
 
     <!-- Toolbar -->
-<androidx.appcompat.widget.Toolbar
-    android:id="@+id/toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
-    android:theme="?attr/actionBarTheme"
-    android:elevation="4dp" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="?attr/actionBarTheme"
+        android:elevation="4dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <!-- Nút lịch sử góc phải -->
+        <ImageButton
+            android:id="@+id/buttonHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:padding="12dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_history"
+            android:contentDescription="Lịch sử"
+            app:tint="#FFFFFF" />
+    </androidx.appcompat.widget.Toolbar>
 
     <!-- Display Area -->
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="0dp"
