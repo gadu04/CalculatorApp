@@ -59,7 +59,7 @@
             android:singleLine="true"
             android:padding="16dp"
             android:textColor="#212121"
-            android:textSize="48sp" />
+            android:textSize="42sp" />
     </HorizontalScrollView>
 
 </LinearLayout>
@@ -71,7 +71,8 @@
         android:gravity="end"
         android:paddingEnd="16dp"
         android:textColor="#212121"
-        android:textSize="34sp" />
+        android:textStyle="bold"
+        android:textSize="45sp" />
 
 
     <!-- Keypad Area -->
