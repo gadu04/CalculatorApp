@@ -175,7 +175,6 @@ public class BasicCalculatorActivity extends AppCompatActivity {
         lastResult = result;
         justEvaluated = true;
 
-        // ✅ Chỉ lưu nếu KHÔNG phải "ERROR"
         if (!exp.isEmpty() && !result.isEmpty() && !result.equalsIgnoreCase("ERROR")) {
             String entry = exp + " = " + result;
             historyList.add(0, entry); // thêm vào đầu danh sách
