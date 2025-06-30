@@ -31,7 +31,40 @@ public class CurrencyConverterActivity extends AppCompatActivity {
     private OkHttpClient client;
 
     // Danh sách một số đồng tiền phổ biến
-    private final String[] currencies = {"USD", "EUR", "JPY", "VND", "GBP", "AUD", "KRW", "CAD"};
+    private final String[] currencies = {
+            "USD - United States",
+            "EUR - Eurozone",
+            "JPY - Japan",
+            "GBP - United Kingdom",
+            "AUD - Australia",
+            "CAD - Canada",
+            "CHF - Switzerland",
+            "CNY - China",
+            "SEK - Sweden",
+            "NZD - New Zealand",
+            "MXN - Mexico",
+            "SGD - Singapore",
+            "HKD - Hong Kong",
+            "NOK - Norway",
+            "KRW - South Korea",
+            "TRY - Turkey",
+            "RUB - Russia",
+            "INR - India",
+            "BRL - Brazil",
+            "ZAR - South Africa",
+            "VND - Vietnam",
+            "IDR - Indonesia",
+            "MYR - Malaysia",
+            "PHP - Philippines",
+            "THB - Thailand",
+            "DKK - Denmark",
+            "PLN - Poland",
+            "HUF - Hungary",
+            "CZK - Czech Republic",
+            "ILS - Israel"
+    };
+
+
 
     // Thay YOUR_API_KEY bằng API key thực của bạn
     private final String API_KEY = "28b6b5e8b2d8a414f3a2d374";
@@ -61,8 +94,12 @@ public class CurrencyConverterActivity extends AppCompatActivity {
     }
 
     private void convertCurrency() {
-        String from = spinnerFrom.getSelectedItem().toString();
-        String to = spinnerTo.getSelectedItem().toString();
+        String fromFull = spinnerFrom.getSelectedItem().toString();
+        String toFull = spinnerTo.getSelectedItem().toString();
+
+        String from = fromFull.split(" - ")[0]; // 👉 Tách mã từ "USD - United States"
+        String to = toFull.split(" - ")[0];
+
         String inputText = amountInput.getText().toString().trim();
 
         if (inputText.isEmpty()) {
@@ -78,10 +115,8 @@ public class CurrencyConverterActivity extends AppCompatActivity {
             return;
         }
 
-        // Tạo URL API
         String url = "https://v6.exchangerate-api.com/v6/" + API_KEY + "/latest/" + from;
 
-        // Gửi request bất đồng bộ
         Request request = new Request.Builder().url(url).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -94,8 +129,6 @@ public class CurrencyConverterActivity extends AppCompatActivity {
                 String jsonData = response.body().string();
                 try {
                     JSONObject jsonObject = new JSONObject(jsonData);
-
-                    // Lưu ý: ExchangeRate-API dùng "conversion_rates"
                     JSONObject rates = jsonObject.getJSONObject("conversion_rates");
                     double rate = rates.getDouble(to);
                     double converted = amount * rate;
@@ -112,4 +145,5 @@ public class CurrencyConverterActivity extends AppCompatActivity {
             }
         });
     }
+
 }
