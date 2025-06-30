@@ -3,6 +3,7 @@ package com.example.appcal.activities;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowInsetsController;
 import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,24 @@ public class EquationSolverActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Màu thanh điều hướng đen
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
+        }
+
+// Nếu API >= 30 (Android 11) ➔ bỏ light nav bar (icon sẽ thành trắng)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            getWindow().getInsetsController().setSystemBarsAppearance(
+                    0,
+                    WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
+            );
+        } else {
+            int flags = getWindow().getDecorView().getSystemUiVisibility();
+            flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+            getWindow().getDecorView().setSystemUiVisibility(flags);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equation_solver);
 
