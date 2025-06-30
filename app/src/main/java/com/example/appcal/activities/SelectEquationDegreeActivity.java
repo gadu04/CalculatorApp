@@ -10,21 +10,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appcal.R;
 
-public class SelectEquationDegreeActivity extends AppCompatActivity {
+import java.util.Objects;
 
-    private Button btnDegree2, btnDegree3, btnDegree4;
+public class SelectEquationDegreeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        // Màu thanh điều hướng đen
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
-        }
-
-// Nếu API >= 30 (Android 11) ➔ bỏ light nav bar (icon sẽ thành trắng)
+        getWindow().setNavigationBarColor(getColor(R.color.black));
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            getWindow().getInsetsController().setSystemBarsAppearance(
+            Objects.requireNonNull(getWindow().getInsetsController()).setSystemBarsAppearance(
                     0,
                     WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
             );
@@ -37,13 +31,13 @@ public class SelectEquationDegreeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_equation_degree);
 
-        btnDegree2 = findViewById(R.id.btn_degree_2);
-        btnDegree3 = findViewById(R.id.btn_degree_3);
-        btnDegree4 = findViewById(R.id.btn_degree_4);
+        Button btnDegree2 = findViewById(R.id.btn_degree_2);
+        Button btnDegree3 = findViewById(R.id.btn_degree_3);
+        Button btnDegree4 = findViewById(R.id.btn_degree_4);
 
-        btnDegree2.setOnClickListener(v -> openEquationSolver(1));
-        btnDegree3.setOnClickListener(v -> openEquationSolver(2));
-        btnDegree4.setOnClickListener(v -> openEquationSolver(3));
+        btnDegree2.setOnClickListener(v -> openEquationSolver(2));
+        btnDegree3.setOnClickListener(v -> openEquationSolver(3));
+        btnDegree4.setOnClickListener(v -> openEquationSolver(4));
     }
 
     private void openEquationSolver(int degree) {

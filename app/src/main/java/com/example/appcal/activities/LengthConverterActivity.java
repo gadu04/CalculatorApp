@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.appcal.R;
 
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.Objects;
 
 public class LengthConverterActivity extends AppCompatActivity {
 
@@ -21,7 +23,6 @@ public class LengthConverterActivity extends AppCompatActivity {
     private Spinner spinnerFrom, spinnerTo;
     private TextView resultText;
 
-    // Bảng quy đổi sang mét
     private final HashMap<String, Double> lengthToMeter = new HashMap<String, Double>() {{
         put("mm", 0.001);
         put("cm", 0.01);
@@ -35,22 +36,19 @@ public class LengthConverterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
-        }
-
-// Nếu API >= 30 (Android 11) ➔ bỏ light nav bar (icon sẽ thành trắng)
+        // Điều chỉnh thanh điều hướng
+        getWindow().setNavigationBarColor(getColor(R.color.black));
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            getWindow().getInsetsController().setSystemBarsAppearance(
+            Objects.requireNonNull(getWindow().getInsetsController()).setSystemBarsAppearance(
                     0,
                     WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
             );
         } else {
-            // Các phiên bản thấp hơn
             int flags = getWindow().getDecorView().getSystemUiVisibility();
             flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
             getWindow().getDecorView().setSystemUiVisibility(flags);
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_length_converter);
 
@@ -77,7 +75,7 @@ public class LengthConverterActivity extends AppCompatActivity {
         String input = inputValue.getText().toString();
 
         if (input.isEmpty()) {
-            resultText.setText("Vui lòng nhập giá trị.");
+            resultText.setText(R.string.enter_value_warning);
             return;
         }
 
@@ -85,7 +83,18 @@ public class LengthConverterActivity extends AppCompatActivity {
         double valueInMeter = value * lengthToMeter.get(fromUnit);
         double result = valueInMeter / lengthToMeter.get(toUnit);
 
-        resultText.setText(String.format("%.4f %s = %.4f %s",
-                value, fromUnit, result, toUnit));
+        String formattedValue = (value == Math.floor(value))
+                ? String.format(Locale.US, "%.0f", value)
+                : String.format(Locale.US, "%.4f", value);
+
+        String formattedResult = (result == Math.floor(result))
+                ? String.format(Locale.US, "%.0f", result)
+                : String.format(Locale.US, "%.4f", result);
+
+        String output = String.format(Locale.US,
+                "%s %s = %s %s",
+                formattedValue, fromUnit, formattedResult, toUnit);
+
+        resultText.setText(output);
     }
 }

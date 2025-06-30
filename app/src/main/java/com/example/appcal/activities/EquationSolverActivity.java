@@ -1,5 +1,6 @@
 package com.example.appcal.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,25 +12,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.appcal.R;
 import com.example.appcal.utils.EquationSolver;
 
+import java.util.Objects;
+
 public class EquationSolverActivity extends AppCompatActivity {
 
     private EditText inputA, inputB, inputC, inputD, inputE;
-    private Button solveButton;
     private TextView resultView;
-    private Spinner spinnerDegree;
     private int degree = 2; // Mặc định bậc 2
 
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
-        }
+        getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
+
+// Nếu API >= 30 (Android 11) ➔ bỏ light nav bar (icon sẽ thành trắng)
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            getWindow().getInsetsController().setSystemBarsAppearance(
+            Objects.requireNonNull(getWindow().getInsetsController()).setSystemBarsAppearance(
                     0,
                     WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
             );
         } else {
+            // Các phiên bản thấp hơn
             int flags = getWindow().getDecorView().getSystemUiVisibility();
             flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
             getWindow().getDecorView().setSystemUiVisibility(flags);
@@ -44,9 +48,12 @@ public class EquationSolverActivity extends AppCompatActivity {
         inputC = findViewById(R.id.inputC);
         inputD = findViewById(R.id.inputD);
         inputE = findViewById(R.id.inputE);
-        solveButton = findViewById(R.id.solveButton);
+        Button solveButton = findViewById(R.id.solveButton);
         resultView = findViewById(R.id.resultView);
-        spinnerDegree = findViewById(R.id.spinnerDegree);
+        Spinner spinnerDegree = findViewById(R.id.spinnerDegree);
+
+        // Lấy degree từ Intent
+        degree = getIntent().getIntExtra("degree", 2);
 
         // Cấu hình spinner chọn bậc
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -56,14 +63,15 @@ public class EquationSolverActivity extends AppCompatActivity {
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDegree.setAdapter(adapter);
-        spinnerDegree.setSelection(0); // Mặc định là bậc 2
+
+        // Set spinner theo degree nhận được
+        spinnerDegree.setSelection(degree - 2);
 
         // Lắng nghe khi chọn bậc
         spinnerDegree.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                degree = position + 2; // 0 → 2, 1 → 3, 2 → 4
-
+                degree = position + 2; // cập nhật degree
                 inputD.setVisibility(degree >= 3 ? View.VISIBLE : View.GONE);
                 inputE.setVisibility(degree == 4 ? View.VISIBLE : View.GONE);
             }
@@ -71,6 +79,10 @@ public class EquationSolverActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
+
+        // Hiển thị đúng input theo degree ban đầu
+        inputD.setVisibility(degree >= 3 ? View.VISIBLE : View.GONE);
+        inputE.setVisibility(degree == 4 ? View.VISIBLE : View.GONE);
 
         // Xử lý nút giải
         solveButton.setOnClickListener(v -> {
@@ -99,6 +111,7 @@ public class EquationSolverActivity extends AppCompatActivity {
             }
         });
     }
+
 
     // Kiểm tra hợp lệ input
     private boolean validateInputs() {

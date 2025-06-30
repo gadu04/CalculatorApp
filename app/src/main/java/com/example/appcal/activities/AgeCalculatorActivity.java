@@ -14,11 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.appcal.R;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 public class AgeCalculatorActivity extends AppCompatActivity {
 
     private TextView tvAgeResult;
-    private Button btnPickDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class AgeCalculatorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_age_calculator);
 
         tvAgeResult = findViewById(R.id.tvAgeResult);
-        btnPickDate = findViewById(R.id.btnPickDate);
+        Button btnPickDate = findViewById(R.id.btnPickDate);
 
         btnPickDate.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
@@ -43,12 +43,10 @@ public class AgeCalculatorActivity extends AppCompatActivity {
             dialog.show();
         });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
-        }
+        getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            getWindow().getInsetsController().setSystemBarsAppearance(
+            Objects.requireNonNull(getWindow().getInsetsController()).setSystemBarsAppearance(
                     0,
                     WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
             );

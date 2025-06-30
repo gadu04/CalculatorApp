@@ -1,5 +1,6 @@
 package com.example.appcal.activities;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.appcal.R;
 import com.example.appcal.utils.CalculatorEngine;
@@ -26,6 +28,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class BasicCalculatorActivity extends AppCompatActivity {
     private boolean isDegreeMode = true; // true = DEG, false = RAD
@@ -36,21 +39,33 @@ public class BasicCalculatorActivity extends AppCompatActivity {
     // ✅ Thêm các biến trạng thái
     private String lastResult = "";
     private boolean justEvaluated = false;
-    private ImageButton buttonHistory;
     private ArrayList<String> historyList = new ArrayList<>();
     private SharedPreferences preferences;
     private static final String HISTORY_KEY = "calc_history";
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.black));
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            Objects.requireNonNull(getWindow().getInsetsController()).setSystemBarsAppearance(
+                    0,
+                    WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
+            );
+        } else {
+            int flags = getWindow().getDecorView().getSystemUiVisibility();
+            flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+            getWindow().getDecorView().setSystemUiVisibility(flags);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basic_calculator);
 
         inputText = findViewById(R.id.txtInput);
         resultText = findViewById(R.id.txtResult);
 
-        buttonHistory = findViewById(R.id.buttonHistory);
+        ImageButton buttonHistory = findViewById(R.id.buttonHistory);
         preferences = getSharedPreferences("calculator_prefs", MODE_PRIVATE);
 
         loadHistory();
@@ -74,22 +89,6 @@ public class BasicCalculatorActivity extends AppCompatActivity {
             isDegreeMode = !isDegreeMode;
             buttonC.setText(isDegreeMode ? "DEG" : "RAD");
         });
-
-
-        // Màu thanh điều hướng
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            getWindow().getInsetsController().setSystemBarsAppearance(
-                    0,
-                    WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
-            );
-        } else {
-            int flags = getWindow().getDecorView().getSystemUiVisibility();
-            flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-            getWindow().getDecorView().setSystemUiVisibility(flags);
-        }
     }
 
     private void setupBasicButtons() {
@@ -148,6 +147,7 @@ public class BasicCalculatorActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private void appendToInput(String value) {
         if (justEvaluated) {
             if (value.matches("[+\\-×÷^%]")) {
@@ -160,7 +160,6 @@ public class BasicCalculatorActivity extends AppCompatActivity {
             inputText.append(value);
         }
 
-        // ✅ Tự động cuộn ngang đến cuối
         HorizontalScrollView scrollView = findViewById(R.id.inputScrollView);
         scrollView.post(() -> scrollView.fullScroll(View.FOCUS_RIGHT));
     }
@@ -175,7 +174,7 @@ public class BasicCalculatorActivity extends AppCompatActivity {
         lastResult = result;
         justEvaluated = true;
 
-        if (!exp.isEmpty() && !result.isEmpty() && !result.equalsIgnoreCase("ERROR")) {
+        if (!result.isEmpty() && !result.equalsIgnoreCase("ERROR")) {
             String entry = exp + " = " + result;
             historyList.add(0, entry); // thêm vào đầu danh sách
             saveHistory(); // lưu lại
@@ -252,7 +251,7 @@ public class BasicCalculatorActivity extends AppCompatActivity {
             if (sciBtn != null) {
                 sciBtn.setOnClickListener(v -> {
                     insertFunction(((Button) v).getText().toString());
-                    popupWindow.dismiss(); // ✅ Tự động đóng popup
+                    popupWindow.dismiss();
                 });
             }
         }

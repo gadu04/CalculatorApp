@@ -7,9 +7,12 @@ import android.view.WindowInsetsController;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import com.example.appcal.R;
 
 import java.util.Locale;
+import java.util.Objects;
 
 public class BmiBmrCalculatorActivity extends AppCompatActivity {
 
@@ -19,11 +22,9 @@ public class BmiBmrCalculatorActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
-        }
+        getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.black));
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            getWindow().getInsetsController().setSystemBarsAppearance(
+            Objects.requireNonNull(getWindow().getInsetsController()).setSystemBarsAppearance(
                     0,
                     WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
             );
@@ -46,7 +47,7 @@ public class BmiBmrCalculatorActivity extends AppCompatActivity {
 
         calculateBtn.setOnClickListener(v -> {
             calculate();
-            hideKeyboard(); // Ẩn bàn phím sau khi tính
+            hideKeyboard();
         });
     }
 

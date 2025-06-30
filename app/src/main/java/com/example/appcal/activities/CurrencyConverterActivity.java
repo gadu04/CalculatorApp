@@ -1,5 +1,6 @@
 package com.example.appcal.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowInsetsController;
@@ -10,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.appcal.R;
 
@@ -18,6 +20,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -32,7 +35,6 @@ public class CurrencyConverterActivity extends AppCompatActivity {
     private TextView resultText;
     private OkHttpClient client;
 
-    // Danh sách một số đồng tiền phổ biến
     private final String[] currencies = {
             "USD - United States",
             "EUR - Eurozone",
@@ -67,29 +69,21 @@ public class CurrencyConverterActivity extends AppCompatActivity {
     };
 
 
-
-    // Thay YOUR_API_KEY bằng API key thực của bạn
-    private final String API_KEY = "28b6b5e8b2d8a414f3a2d374";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Màu thanh điều hướng đen
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
-        }
+        getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.black));
 
-// Nếu API >= 30 (Android 11) ➔ bỏ light nav bar (icon sẽ thành trắng)
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            getWindow().getInsetsController().setSystemBarsAppearance(
+            Objects.requireNonNull(getWindow().getInsetsController()).setSystemBarsAppearance(
                     0,
                     WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
             );
         } else {
-            // Các phiên bản thấp hơn
             int flags = getWindow().getDecorView().getSystemUiVisibility();
             flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
             getWindow().getDecorView().setSystemUiVisibility(flags);
         }
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency_converter);
@@ -113,6 +107,7 @@ public class CurrencyConverterActivity extends AppCompatActivity {
         convertButton.setOnClickListener(v -> convertCurrency());
     }
 
+    @SuppressLint("SetTextI18n")
     private void convertCurrency() {
         String fromFull = spinnerFrom.getSelectedItem().toString();
         String toFull = spinnerTo.getSelectedItem().toString();
@@ -135,17 +130,21 @@ public class CurrencyConverterActivity extends AppCompatActivity {
             return;
         }
 
+        String API_KEY = "28b6b5e8b2d8a414f3a2d374";
         String url = "https://v6.exchangerate-api.com/v6/" + API_KEY + "/latest/" + from;
 
         Request request = new Request.Builder().url(url).build();
         client.newCall(request).enqueue(new Callback() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 runOnUiThread(() -> resultText.setText("Lỗi kết nối: " + e.getMessage()));
             }
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                assert response.body() != null;
                 String jsonData = response.body().string();
                 try {
                     JSONObject jsonObject = new JSONObject(jsonData);

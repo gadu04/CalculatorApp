@@ -12,6 +12,8 @@
     <string name="action_settings">Settings</string>
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string name="enter_value_warning">Vui lòng nhập giá trị.</string>
+
 
 
     <string-array name="equation_degrees">
