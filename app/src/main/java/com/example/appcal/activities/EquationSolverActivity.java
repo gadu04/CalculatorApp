@@ -21,13 +21,9 @@ public class EquationSolverActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        // Màu thanh điều hướng đen
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
         }
-
-// Nếu API >= 30 (Android 11) ➔ bỏ light nav bar (icon sẽ thành trắng)
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
             getWindow().getInsetsController().setSystemBarsAppearance(
                     0,
