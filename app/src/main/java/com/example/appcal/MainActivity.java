@@ -15,6 +15,7 @@ import com.example.appcal.activities.AgeCalculatorActivity;
 import com.example.appcal.activities.BasicCalculatorActivity;
 import com.example.appcal.activities.CurrencyConverterActivity;
 import com.example.appcal.activities.EquationSolverActivity;
+import com.example.appcal.activities.LengthConverterActivity;
 import com.example.appcal.activities.SelectEquationDegreeActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,14 +25,16 @@ public class MainActivity extends AppCompatActivity {
             "Basic Calculator",
             "Tax Calculator",
             "Currency",
-            "Equation Solver" // 👈 Thêm dòng này
+            "Equation Solver",
+            "Length Converter"
     };
 
     int[] icons = {
             R.drawable.ic_calculator,
             R.drawable.ic_age,
             R.drawable.ic_currency,
-            R.drawable.ic_equation // 👈 Bạn cần có icon này trong drawable
+            R.drawable.ic_equation,
+            R.drawable.ic_length
     };
 
 
@@ -73,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 3:
                     startActivity(new Intent(this, SelectEquationDegreeActivity.class)); // 👈 Tên Activity bạn đã tạo
+                    break;
+                case 4:
+                    startActivity(new Intent(this, LengthConverterActivity.class)); // 👈 Tên Activity bạn đã tạo
                     break;
             }
 
