@@ -20,6 +20,7 @@
         <activity android:name=".activities.EquationSolverActivity" />
         <activity android:name=".activities.SelectEquationDegreeActivity" />
         <activity android:name=".activities.LengthConverterActivity" />
+        //<activity android:name=".activities.BmiBmrCalculatorActivity" />
 
 
 
