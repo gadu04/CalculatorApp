@@ -15,10 +15,12 @@
         android:theme="@style/Theme.AppCal">
 
 
-
         <activity android:name=".activities.BasicCalculatorActivity" />
         <activity android:name=".activities.AgeCalculatorActivity" />
         <activity android:name=".activities.CurrencyConverterActivity" />
+        <activity android:name=".activities.EquationSolverActivity" />
+        <activity android:name=".activities.SelectEquationDegreeActivity" />
+
 
 
         <activity

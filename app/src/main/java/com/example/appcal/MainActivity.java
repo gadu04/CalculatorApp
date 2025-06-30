@@ -14,16 +14,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.appcal.activities.AgeCalculatorActivity;
 import com.example.appcal.activities.BasicCalculatorActivity;
 import com.example.appcal.activities.CurrencyConverterActivity;
+import com.example.appcal.activities.EquationSolverActivity;
+import com.example.appcal.activities.SelectEquationDegreeActivity;
 
 public class MainActivity extends AppCompatActivity {
     GridView gridMenu;
 
-    String[] tools = {"Basic Calculator", "Tax Calculator", "Currency"};
+    String[] tools = {
+            "Basic Calculator",
+            "Tax Calculator",
+            "Currency",
+            "Equation Solver" // 👈 Thêm dòng này
+    };
+
     int[] icons = {
             R.drawable.ic_calculator,
             R.drawable.ic_age,
-            R.drawable.ic_currency
+            R.drawable.ic_currency,
+            R.drawable.ic_equation // 👈 Bạn cần có icon này trong drawable
     };
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -61,7 +71,11 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                     startActivity(new Intent(this, CurrencyConverterActivity.class));
                     break;
+                case 3:
+                    startActivity(new Intent(this, SelectEquationDegreeActivity.class)); // 👈 Tên Activity bạn đã tạo
+                    break;
             }
+
         });
     }
 }

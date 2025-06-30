@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_select_degree"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chọn bậc phương trình"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="32dp" />
+
+    <Button
+        android:id="@+id/btn_degree_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phương trình bậc 2"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/btn_degree_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phương trình bậc 3"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/btn_degree_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phương trình bậc 4"
+        android:layout_marginBottom="16dp" />
+
+</LinearLayout>

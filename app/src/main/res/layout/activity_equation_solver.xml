@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Spinner chọn bậc phương trình -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn bậc phương trình"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerDegree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Hệ số A, B, C, D, E -->
+        <EditText
+            android:id="@+id/inputA"
+            android:hint="Nhập hệ số a (≠ 0)"
+            android:inputType="numberSigned|numberDecimal"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/inputB"
+            android:hint="Nhập hệ số b"
+            android:inputType="numberSigned|numberDecimal"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/inputC"
+            android:hint="Nhập hệ số c"
+            android:inputType="numberSigned|numberDecimal"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/inputD"
+            android:hint="Nhập hệ số d (bậc 3, 4)"
+            android:inputType="numberSigned|numberDecimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/inputE"
+            android:hint="Nhập hệ số e (bậc 4)"
+            android:inputType="numberSigned|numberDecimal"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <!-- Nút giải -->
+        <Button
+            android:id="@+id/solveButton"
+            android:text="Giải phương trình"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+
+        <!-- Kết quả -->
+        <TextView
+            android:id="@+id/resultView"
+            android:text="Kết quả sẽ hiển thị ở đây"
+            android:padding="12dp"
+            android:textColor="#000000"
+            android:background="#EEEEEE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" />
+    </LinearLayout>
+</ScrollView>
