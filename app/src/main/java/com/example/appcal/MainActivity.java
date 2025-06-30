@@ -14,18 +14,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.appcal.activities.AgeCalculatorActivity;
 import com.example.appcal.activities.BasicCalculatorActivity;
 import com.example.appcal.activities.CurrencyConverterActivity;
-import com.example.appcal.activities.SettingsActivity; // ✅ Thêm dòng này
 
 public class MainActivity extends AppCompatActivity {
     GridView gridMenu;
 
-    // ✅ Thêm "Settings" vào danh sách công cụ
-    String[] tools = {"Basic Calculator", "Tax Calculator", "Currency", "Settings"};
+    String[] tools = {"Basic Calculator", "Tax Calculator", "Currency"};
     int[] icons = {
             R.drawable.ic_calculator,
             R.drawable.ic_age,
-            R.drawable.ic_currency,
-            R.drawable.ic_settings // ✅ Icon settings
+            R.drawable.ic_currency
     };
 
     @SuppressLint("MissingInflatedId")
@@ -34,12 +31,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // ✅ Màu thanh điều hướng
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
         }
 
-        // ✅ Màu icon điều hướng
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             getWindow().getInsetsController().setSystemBarsAppearance(
                     0,
@@ -51,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
             getWindow().getDecorView().setSystemUiVisibility(flags);
         }
 
-        // ✅ Setup GridView
         gridMenu = findViewById(R.id.gridMenu);
         GridMenuAdapter adapter = new GridMenuAdapter(this, tools, icons);
         gridMenu.setAdapter(adapter);
@@ -66,9 +60,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 2:
                     startActivity(new Intent(this, CurrencyConverterActivity.class));
-                    break;
-                case 3:
-                    startActivity(new Intent(this, SettingsActivity.class)); // ✅ Settings
                     break;
             }
         });
