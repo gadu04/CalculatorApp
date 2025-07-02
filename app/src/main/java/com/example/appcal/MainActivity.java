@@ -16,6 +16,8 @@ import com.example.appcal.activities.AgeCalculatorActivity;
 import com.example.appcal.activities.BasicCalculatorActivity;
 import com.example.appcal.activities.BmiBmrCalculatorActivity;
 import com.example.appcal.activities.CurrencyConverterActivity;
+import com.example.appcal.activities.DerivativeCalculatorActivity;
+import com.example.appcal.activities.IntegralCalculatorActivity;
 import com.example.appcal.activities.LengthConverterActivity;
 import com.example.appcal.activities.SelectEquationDegreeActivity;
 
@@ -24,11 +26,13 @@ public class MainActivity extends AppCompatActivity {
 
     String[] tools = {
             "Basic Calculator",
-            "Tax Calculator",
+            "Date Calculation",
             "Currency",
             "Equation Solver",
             "Length Converter",
-            "BMI & BMR Calculator"
+            "BMI & BMR Calculator",
+            "Derivative Calculator",
+            "Integral Calculator"
     };
 
 
@@ -38,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.ic_currency,
             R.drawable.ic_equation,
             R.drawable.ic_length,
-            R.drawable.ic_bmi
+            R.drawable.ic_bmi,
+            R.drawable.ic_derivative,
+            R.drawable.ic_integral
 
     };
 
@@ -52,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         // Đặt màu thanh điều hướng
         getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.black));
 
-// Thiết lập appearance thanh điều hướng
+        // Thiết lập appearance thanh điều hướng
         WindowInsetsController insetsController = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             insetsController = getWindow().getInsetsController();
@@ -96,6 +102,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 5:
                 startActivity(new Intent(this, BmiBmrCalculatorActivity.class));
+                break;
+            case 6:
+                startActivity(new Intent(this, DerivativeCalculatorActivity.class));
+                break;
+            case 7:
+                startActivity(new Intent(this, IntegralCalculatorActivity.class));
                 break;
         }
 

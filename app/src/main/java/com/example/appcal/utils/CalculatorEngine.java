@@ -151,7 +151,9 @@ public class CalculatorEngine {
                 double b = stack.pop(), a = stack.pop();
                 stack.push(Math.pow(a, b));
             } else if (token.equals("%")) {
-                stack.push(stack.pop() / 100.0);
+                double b = stack.pop(); // sau %
+                double a = stack.pop(); // truoc %
+                stack.push((a/100.0)*b);
             } else if (token.equals("√")) {
                 stack.push(Math.sqrt(stack.pop()));
             } else if (token.equals("∛")) {

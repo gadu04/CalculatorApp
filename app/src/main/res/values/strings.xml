@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Calculator của Garu</string>
+    <string name="app_name">Calculator Group 1</string>
     <string name="basic_calc">Basic Calculator</string>
     <string name="age_calc">Age Calculator</string>
     <string name="currency_converter">Currency Converter</string>

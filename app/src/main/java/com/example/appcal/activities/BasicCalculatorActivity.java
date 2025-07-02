@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,10 +34,9 @@ import java.util.Objects;
 public class BasicCalculatorActivity extends AppCompatActivity {
     private boolean isDegreeMode = true; // true = DEG, false = RAD
     private Button buttonC;
-    private TextView inputText, resultText;
+    private TextView resultText;
+    private EditText inputText;
     private PopupWindow popupWindow;
-
-    // ✅ Thêm các biến trạng thái
     private String lastResult = "";
     private boolean justEvaluated = false;
     private ArrayList<String> historyList = new ArrayList<>();
@@ -49,7 +49,7 @@ public class BasicCalculatorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.black));
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             Objects.requireNonNull(getWindow().getInsetsController()).setSystemBarsAppearance(
                     0,
                     WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
@@ -59,45 +59,97 @@ public class BasicCalculatorActivity extends AppCompatActivity {
             flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
             getWindow().getDecorView().setSystemUiVisibility(flags);
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basic_calculator);
 
         inputText = findViewById(R.id.txtInput);
         resultText = findViewById(R.id.txtResult);
 
-        ImageButton buttonHistory = findViewById(R.id.buttonHistory);
-        preferences = getSharedPreferences("calculator_prefs", MODE_PRIVATE);
+        // Ẩn bàn phím ảo khi focus
+        inputText.setShowSoftInputOnFocus(false);
 
+        // Ngăn trỏ vào giữa các hàm toán học
+        inputText.setOnClickListener(v -> sanitizeCursorPosition());
+        inputText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) sanitizeCursorPosition();
+        });
+
+        // Lịch sử
+        preferences = getSharedPreferences("calculator_prefs", MODE_PRIVATE);
         loadHistory();
 
-        buttonHistory.setOnClickListener(v -> showHistoryDialog());
+        // Nút lịch sử
+        ImageButton buttonHistory = findViewById(R.id.buttonHistory);
+        if (buttonHistory != null) {
+            buttonHistory.setOnClickListener(v -> showHistoryDialog());
+        }
 
+        // Nút mở menu khoa học (popup)
+        View buttonMore = findViewById(R.id.buttonMore);
+        if (buttonMore != null) {
+            buttonMore.setOnClickListener(v -> showScientificPopup());
+        }
 
-        // Gán nút popup khoa học
-        findViewById(R.id.buttonMore).setOnClickListener(v -> showScientificPopup());
+        // Nút "=" để tính toán
+        View buttonEquals = findViewById(R.id.buttonEquals);
+        if (buttonEquals != null) {
+            buttonEquals.setOnClickListener(v -> evaluateExpression());
+        }
 
-        // Gán nút tính toán =
-        findViewById(R.id.buttonEquals).setOnClickListener(v -> evaluateExpression());
-
-        // Gán sự kiện cho toàn bộ button thường
+        // Gán sự kiện cho toàn bộ nút số và phép toán cơ bản
         setupBasicButtons();
 
+        // Nút DEG/RAD
         buttonC = findViewById(R.id.buttonC);
-        buttonC.setText("DEG"); // mặc định
+        if (buttonC != null) {
+            buttonC.setText("DEG");
+            buttonC.setOnClickListener(v -> {
+                isDegreeMode = !isDegreeMode;
+                buttonC.setText(isDegreeMode ? "DEG" : "RAD");
+            });
+        }
+    }
 
-        buttonC.setOnClickListener(v -> {
-            isDegreeMode = !isDegreeMode;
-            buttonC.setText(isDegreeMode ? "DEG" : "RAD");
-        });
+    private void sanitizeCursorPosition() {
+        String text = inputText.getText().toString();
+        int cursorPos = inputText.getSelectionStart();
+
+        String[] functions = {
+                "sin(", "cos(", "tan(","log(", "ln(", "log₂(",
+                "√(", "∛(", "abs(", "sin⁻¹(", "cos⁻¹(", "tan⁻¹(", "mod"
+        };
+
+        for (String func : functions) {
+            int index = text.indexOf(func);
+            while (index != -1) {
+                int funcStart = index;
+                int funcEnd = index + func.length();
+
+                if (cursorPos > funcStart && cursorPos < funcEnd) {
+                    // Nếu trỏ vào giữa hàm, thì:
+                    // Nếu lệch gần đầu hàm → đẩy về đầu hàm
+                    // Nếu lệch gần cuối hàm → đẩy về sau dấu (
+                    int mid = (funcStart + funcEnd) / 2;
+                    if (cursorPos - funcStart <= func.length() / 2) {
+                        inputText.setSelection(funcStart);
+                    } else {
+                        inputText.setSelection(funcEnd);
+                    }
+                    return;
+                }
+
+                // Tìm tiếp các hàm còn lại trong chuỗi
+                index = text.indexOf(func, funcEnd);
+            }
+        }
     }
 
     private void setupBasicButtons() {
         int[] buttonIds = {
                 R.id.button0, R.id.button1, R.id.button2, R.id.button3, R.id.button4,
                 R.id.button5, R.id.button6, R.id.button7, R.id.button8, R.id.button9,
-                R.id.button00, R.id.buttonDot,
-                R.id.buttonAdd, R.id.buttonSubtract, R.id.buttonMultiply, R.id.buttonDivide,
-                R.id.buttonPercent,
+                R.id.buttonDot, R.id.buttonAdd, R.id.buttonSubtract, R.id.buttonMultiply, R.id.buttonDivide,
                 R.id.buttonOpenParentheses, R.id.buttonParentheses
         };
 
@@ -108,28 +160,65 @@ public class BasicCalculatorActivity extends AppCompatActivity {
             }
         }
 
-        // Xử lý nút xóa 1 ký tự
-        findViewById(R.id.buttonBackspace).setOnClickListener(v -> {
-            String current = inputText.getText().toString();
-            if (!current.isEmpty()) {
-                inputText.setText(current.substring(0, current.length() - 1));
-                justEvaluated = false;
+        // Optional buttons (có thể không tồn tại trong landscape)
+        int[] optionalButtonIds = {
+                R.id.button00,
+                R.id.buttonPercent
+        };
+
+        for (int id : optionalButtonIds) {
+            Button btn = findViewById(id);
+            if (btn != null) {
+                btn.setOnClickListener(v -> appendToInput(((Button) v).getText().toString()));
             }
-        });
+        }
 
-        // Xóa toàn bộ
-        findViewById(R.id.buttonClear).setOnClickListener(v -> {
-            inputText.setText("");
-            resultText.setText("");
-            lastResult = "";
-            justEvaluated = false;
-        });
+        View buttonBackspace = findViewById(R.id.buttonBackspace);
+        if (buttonBackspace != null) {
+            buttonBackspace.setOnClickListener(v -> {
+                int cursorPos = inputText.getSelectionStart();
+                String current = inputText.getText().toString();
 
-        // Xóa input (giữ kết quả)
-        findViewById(R.id.buttonC).setOnClickListener(v -> {
-            inputText.setText("");
-            justEvaluated = false;
-        });
+                if (cursorPos == 0 || current.isEmpty()) return;
+
+                // Xử lý xóa cụm hàm (nếu cần)
+                String[] functions = {
+                        "sin(", "cos(", "tan(","log(", "ln(", "log₂(",
+                        "√(", "∛(", "abs(", "sin⁻¹(", "cos⁻¹(", "tan⁻¹(", "mod"
+                };
+
+                for (String func : functions) {
+                    int funcLen = func.length();
+                    if (cursorPos >= funcLen && current.substring(cursorPos - funcLen, cursorPos).equals(func)) {
+                        inputText.getText().delete(cursorPos - funcLen, cursorPos);
+                        justEvaluated = false;
+                        return;
+                    }
+                }
+                // Mặc định xóa 1 ký tự trước con trỏ
+                inputText.getText().delete(cursorPos - 1, cursorPos);
+                justEvaluated = false;
+            });
+        }
+
+        View buttonClear = findViewById(R.id.buttonClear);
+        if (buttonClear != null) {
+            buttonClear.setOnClickListener(v -> {
+                inputText.setText("");
+                resultText.setText("");
+                lastResult = "";
+                justEvaluated = false;
+            });
+        }
+
+        buttonC = findViewById(R.id.buttonC);
+        if (buttonC != null) {
+            buttonC.setText("DEG"); // mặc định
+            buttonC.setOnClickListener(v -> {
+                isDegreeMode = !isDegreeMode;
+                buttonC.setText(isDegreeMode ? "DEG" : "RAD");
+            });
+        }
     }
 
     private String convertUserInput(String input) {
@@ -149,16 +238,16 @@ public class BasicCalculatorActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void appendToInput(String value) {
-        if (justEvaluated) {
-            if (value.matches("[+\\-×÷^%]")) {
-                inputText.setText(lastResult + value);
-            } else {
-                inputText.setText(value);
-            }
-            justEvaluated = false;
-        } else {
-            inputText.append(value);
-        }
+        int cursorPos = inputText.getSelectionStart(); // Lấy vị trí con trỏ hiện tại
+        String oldText = inputText.getText().toString();
+
+        // Chèn giá trị mới vào vị trí con trỏ
+        String newText = oldText.substring(0, cursorPos) + value + oldText.substring(cursorPos);
+
+        inputText.setText(newText);
+        inputText.setSelection(cursorPos + value.length()); // Di chuyển con trỏ sau khi chèn
+
+        justEvaluated = false;
 
         HorizontalScrollView scrollView = findViewById(R.id.inputScrollView);
         scrollView.post(() -> scrollView.fullScroll(View.FOCUS_RIGHT));
@@ -290,7 +379,16 @@ public class BasicCalculatorActivity extends AppCompatActivity {
         builder.setTitle("Lịch sử phép tính");
 
         String[] items = historyList.toArray(new String[0]);
-        builder.setItems(items, null);
+        builder.setItems(items, (dialog, which) -> {
+            String selectedEntry = items[which];
+            int equalIndex = selectedEntry.lastIndexOf("=");
+            if (equalIndex != -1) {
+                String expression = selectedEntry.substring(0, equalIndex).trim();
+                inputText.setText(expression);
+                inputText.setSelection(expression.length()); // đặt con trỏ về cuối
+                justEvaluated = false;
+            }
+        });
 
         builder.setPositiveButton("Đóng", null);
         builder.setNegativeButton("Xoá hết", (dialog, which) -> {

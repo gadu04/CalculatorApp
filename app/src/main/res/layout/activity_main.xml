@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calculator của Garu"
+        android:text="Calculator Group 1"
         android:textSize="24sp"
         android:textColor="@color/black"
         android:textStyle="bold" />

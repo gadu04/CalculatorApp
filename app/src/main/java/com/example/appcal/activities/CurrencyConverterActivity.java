@@ -69,6 +69,7 @@ public class CurrencyConverterActivity extends AppCompatActivity {
     };
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.black));

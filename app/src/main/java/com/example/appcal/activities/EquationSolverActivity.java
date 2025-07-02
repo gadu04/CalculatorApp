@@ -24,16 +24,14 @@ public class EquationSolverActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getWindow().setNavigationBarColor(getResources().getColor(R.color.black));
-
-// Nếu API >= 30 (Android 11) ➔ bỏ light nav bar (icon sẽ thành trắng)
+        // Điều chỉnh thanh điều hướng
+        getWindow().setNavigationBarColor(getColor(R.color.black));
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
             Objects.requireNonNull(getWindow().getInsetsController()).setSystemBarsAppearance(
                     0,
                     WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
             );
         } else {
-            // Các phiên bản thấp hơn
             int flags = getWindow().getDecorView().getSystemUiVisibility();
             flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
             getWindow().getDecorView().setSystemUiVisibility(flags);

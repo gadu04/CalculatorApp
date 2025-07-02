@@ -13,10 +13,10 @@
         android:gravity="center_horizontal"
         android:paddingBottom="32dp">
 
-        <!-- Title -->
+        <!-- Tiêu đề -->
         <TextView
             android:id="@+id/title"
-            android:text="Date Difference Calculator"
+            android:text="Derivative Calculator"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="?attr/colorOnBackground"
@@ -24,55 +24,69 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <!-- From Date -->
+        <!-- Nhập biểu thức -->
         <TextView
-            android:text="From Date"
+            android:text="Expression (in x)"
             android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"
-            android:layout_marginTop="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/btnPickDate"
-            android:text="Pick From Date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:backgroundTint="?attr/colorPrimary"
-            android:textColor="?attr/colorOnPrimary"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="4dp" />
 
-        <!-- To Date -->
+        <EditText
+            android:id="@+id/editExpression"
+            android:hint="e.g: sin(x) + x^2"
+            android:inputType="text"
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="#888888"
+            android:backgroundTint="?attr/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:padding="10dp" />
+
+        <!-- Nhập giá trị x -->
         <TextView
-            android:text="To Date"
+            android:text="Value of x"
             android:textSize="16sp"
             android:textColor="?attr/colorOnSurface"
-            android:layout_marginTop="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/btnToDate"
-            android:text="Pick To Date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/editXValue"
+            android:hint="e.g: 2"
+            android:inputType="numberDecimal|numberSigned"
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="#888888"
+            android:backgroundTint="?attr/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:padding="10dp" />
+
+        <!-- Nút tính đạo hàm -->
+        <Button
+            android:id="@+id/btnCalculate"
+            android:text="Calculate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:backgroundTint="?attr/colorPrimary"
             android:textColor="?attr/colorOnPrimary"
+            android:textAllCaps="false"
             android:layout_marginBottom="20dp" />
 
-        <!-- Result -->
+        <!-- Kết quả -->
         <TextView
-            android:id="@+id/tvAgeResult"
+            android:id="@+id/txtResult"
             android:text="Result will show here"
             android:textSize="18sp"
             android:textColor="?attr/colorOnSurface"
-            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="10dp" />
+            android:layout_marginTop="16dp" />
 
     </LinearLayout>
 </ScrollView>

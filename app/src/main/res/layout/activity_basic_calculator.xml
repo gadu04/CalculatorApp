@@ -48,18 +48,22 @@
             android:fillViewport="true"
             android:scrollbars="none">
 
-            <TextView
+            <EditText
                 android:id="@+id/txtInput"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
+                android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 android:ellipsize="start"
                 android:gravity="end|bottom"
                 android:singleLine="true"
                 android:padding="16dp"
                 android:textColor="#212121"
-                android:textSize="42sp" />
+                android:textSize="42sp"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="none"
+                android:textIsSelectable="true" />
         </HorizontalScrollView>
 
     </LinearLayout>
@@ -72,7 +76,7 @@
         android:paddingEnd="16dp"
         android:textColor="#212121"
         android:textStyle="bold"
-        android:textSize="45sp" />
+        android:textSize="40sp" />
 
 
     <!-- Keypad Area -->
